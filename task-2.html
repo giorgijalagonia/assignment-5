@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ქვიზი</title>
+    <style>
+        .correct { color: green; }
+        .incorrect { color: red; }
+        .question { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>ქვიზი</h1>
+    <div id="quiz">
+    </div>
+    <div id="score">Score: 0</div>
+
+    <script>
+        const questions = [
+            {
+                question: "საქართველოში ყველაზე ძველი ქალაქი რომელია?",
+                options: ["თბილისი", "მცხეთა", "ბათუმი"],
+                answer: 1
+            },
+            {
+                question: "ვინ დაარსა თბილისი?",
+                options: ["გორგასალი", "თამარ მეფე", "შევარდნაძე"],
+                answer: 0 
+            },
+            {
+                question: " სად მდებარეობს სათაფლიის ნაკრძალი?",
+                options: ["იმერეთი", "სამეგრელო", "ორივე"],
+                answer: 0
+            },
+            {
+                question: "რომელ საუკუნეში მეფობდა თამარ მეფე?",
+                options: ["X საუკუნე", "XII საუკუნე", "XI საუკუნე"],
+                answer: 1
+            },
+            {
+                question: "რომელი ქალაქი იყო საქართველოს დედაქალაქი დავით აღმაშენებლის მეფობისას?",
+                options: ["თბილისი", "ქუთაისი", "ბათუმი"],
+                answer: 1
+            }
+        ];
+
+        let score = 0;
+
+        function displayQuestions() {
+            const quizDiv = document.getElementById("quiz");
+
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.classList.add("question");
+                
+                const questionTitle = document.createElement("p");
+                questionTitle.textContent = (index + 1) + ". " + q.question;
+                questionDiv.appendChild(questionTitle);
+
+                q.options.forEach((option, i) => {
+                    const button = document.createElement("button");
+                    button.textContent = option;
+                    button.addEventListener("click", () => checkAnswer(button, i, q.answer));
+                    questionDiv.appendChild(button);
+                });
+
+                quizDiv.appendChild(questionDiv);
+            });
+        }
+
+        function checkAnswer(button, selectedOption, correctAnswer) {
+            if (selectedOption === correctAnswer) {
+                button.classList.add("correct");
+                score++;
+            } else {
+                button.classList.add("incorrect");
+            }
+            updateScore();
+        }
+
+        function updateScore() {
+            const scoreDiv = document.getElementById("score");
+            scoreDiv.textContent = "ქულა: " + score;
+        }
+
+        displayQuestions();
+    </script>
+
+</body>
+</html>
